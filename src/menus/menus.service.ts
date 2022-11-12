@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { Menu, MenuDocument } from './schemas/menu.schema';
 
 @Injectable()
 export class MenusService {
-  create(createMenuDto: CreateMenuDto) {
-    return 'This action adds a new menu';
+  constructor(
+    @InjectModel(Menu.name) private readonly menuModel: Model<MenuDocument>,
+  ) {}
+
+  async create(createMenuDto: CreateMenuDto): Promise<MenuDocument> {
+    const menu = new this.menuModel(createMenuDto);
+    return menu.save();
   }
 
-  findAll() {
-    return `This action returns all menus`;
+  async findAll(): Promise<MenuDocument[]> {
+    return this.menuModel.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} menu`;
+    return this.menuModel.findById(id);
   }
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
+  async update(
+    id: number,
+    updateMenuDto: UpdateMenuDto,
+  ): Promise<MenuDocument> {
+    return this.menuModel.findByIdAndUpdate(id, updateMenuDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
+  async remove(id: number) {
+    return this.menuModel.findByIdAndRemove(id);
   }
 }
