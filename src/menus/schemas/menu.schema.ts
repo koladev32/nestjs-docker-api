@@ -7,13 +7,13 @@ export type MenuDocument = Menu & Document;
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
 })
 export class Menu {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   description: string;
 
-  @Prop()
+  @Prop({ required: true })
   price: number;
 }
 
