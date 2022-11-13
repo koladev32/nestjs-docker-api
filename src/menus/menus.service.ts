@@ -20,12 +20,12 @@ export class MenusService {
     return this.menuModel.find();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.menuModel.findById(id);
   }
 
   async update(
-    id: number,
+    id: string,
     updateMenuDto: UpdateMenuDto,
   ): Promise<MenuDocument> {
     return this.menuModel.findByIdAndUpdate(id, updateMenuDto);

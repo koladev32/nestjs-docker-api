@@ -16,7 +16,7 @@ export class CreateMenuDto {
   @IsNotEmpty()
   @MinLength(5)
   @MaxLength(300)
-  descripition: string;
+  description: string;
 
   @IsNumber()
   @IsNotEmpty()
